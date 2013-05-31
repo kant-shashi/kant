@@ -1,4 +1,4 @@
 kant
 ====
 
-Nothing special here for now!
+Collection of configuration files like .emacs, .vimrc, .bashrc etc.
