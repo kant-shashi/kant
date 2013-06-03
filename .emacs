@@ -80,3 +80,29 @@
    )
 )
 (put 'upcase-region 'disabled nil)
+
+(setq tabbar-buffer-groups-function
+      (lambda ()
+        (list "All")))
+
+;; code for smooth scrolling begins
+(defun smooth-scroll (number-lines increment)
+  (if (= 0 number-lines)
+      t
+    (progn
+      (sit-for 0.02)
+      (scroll-up increment)
+       (smooth-scroll (- number-lines 1) increment))))
+
+(global-set-key [(mouse-5)] '(lambda () (interactive) (smooth-scroll 6 1)))
+(global-set-key [(mouse-4)] '(lambda () (interactive) (smooth-scroll 6 -1)))
+
+;; code for smooth scrolling ends here
+
+(add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
+
+
+;;;emacs ends here
