@@ -62,7 +62,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (misterioso))))
+ '(custom-enabled-themes (quote (misterioso)))
+ '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -104,5 +105,53 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+;; configuration for c++ (3 June 13) starts here
+;; Here is a sample .emacs configuration for working with C++.
+;; Note that everything after a semicolon is a comment.
+;; Part I. Essentials to editing
+;; Specify a directory where to load additional Emacs Lisp files.
+(add-to-list 'load-path (expand-file-name "~/.emacs.d"))
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+;; Turns on syntax highlighting.
+(global-font-lock-mode t)
+;; Sets the syntax highlighting to the maximum amount of colorization.
+(setq font-lock-maximum-decoration t)
+;; Do not make backup recovery files when editing.
+(setq make-backup-files nil)
+;; Use Shift + the arrow keys to move between windows in a frame
+(when (fboundp 'windmove-default-keybindings)
+            (windmove-default-keybindings))
+;; Part II. Configure Emacs as a great C++ IDE
+;; Include the C/C++ mode Elisp package
+(require 'cc-mode)
+;; In versions of Emacs greater than 23.2, do the following
+(when (or (> emacs-major-version 23)
+                (and (= emacs-major-version 23)
+                     (>= emacs-minor-version 2)))
+ ;; Use the GDB visual debugging mode
+ (setq gdb-many-windows t)
+ ;; Turn Semantic on
+ (semantic-mode 1)
+ ;; Try to make completions when not typing
+ (global-semantic-idle-completions-mode 1)
+ ;; Use the Semantic speedbar additions
+ (add-hook 'speedbar-load-hook (lambda () (require 'semantic/sb))))
+;; Treat .h files as C++ files (instead of C)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+;; Use the indentation style of "The C++ Programming Language"
+(setq c-default-style "stroustrup")
+;; Return adds a newline and indents
+(define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
+;; Run compile when you press F5
+(global-set-key (kbd "<f5>") 'compile)
+;;configuration for c++ (3 June 13) ends here.
 
-;;;emacs ends here
+;; making tab navigation easy (start here)
+(global-set-key [M-left] 'tabbar-backward-tab)
+(global-set-key [M-right] 'tabbar-forward-tab)
+;; making tab navigation easy (ends here)
+
+
+;;(provide '.emacs)
+;;; .emacs ends here
