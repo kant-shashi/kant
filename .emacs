@@ -152,6 +152,9 @@
 (global-set-key [M-right] 'tabbar-forward-tab)
 ;; making tab navigation easy (ends here)
 
+;;(menu-bar-mode -1)    ;hide menu-bar
+(scroll-bar-mode -1)  ;hide scroll bar
+(tool-bar-mode -1)  ;hide tool-bar
 
 ;;(provide '.emacs)
 ;;; .emacs ends here
